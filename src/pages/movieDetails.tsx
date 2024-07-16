@@ -67,29 +67,29 @@ const MovieDetail: React.FC = () => {
   if (!details) return <div className="text-center">Movie not found.</div>;
 
   return (
-    <div className="container mx-auto mt-5 px-4">
-      <div className="flex flex-col md:flex-row mt-2 bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="md:w-1/3">
+    <div className="container mx-auto mt-5 px-4" style={{ backgroundColor: '#121212' }}>
+      <div className="flex flex-col md:flex-row mt-2 rounded-lg overflow-hidden" style={{ boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+        <div className="md:w-1/3 bg-black">
           <img
             className="w-full h-full object-cover"
             src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
             alt={details.title}
           />
         </div>
-        <div className="md:w-2/3 md:pl-4 p-4">
+        <div className="md:w-2/3 p-4 text-white">
           <h1 className="text-3xl font-bold">{details.title}</h1>
           <div className="flex justify-between items-center my-2">
             <span className="text-lg">Rating: {details.vote_average} / 10</span>
-            <span className="text-sm text-gray-500">Language: {details.original_language.toUpperCase()}</span>
+            <span className="text-sm">Language: {details.original_language.toUpperCase()}</span>
           </div>
-          <hr className="my-4" />
-          <h5 className="text-xl font-semibold">Overview:</h5>
+          <hr className="my-4" style={{ borderColor: '#333' }} />
+          <h5 className="text-xl font-semibold"></h5>
           <p>{details.overview}</p>
           <button 
             onClick={toggleFavorite}
             className={`mt-4 flex items-center ${isFavorite ? 'text-red-600' : 'text-gray-600'}`}>
             {isFavorite ? <AiFillHeart size="24" /> : <AiOutlineHeart size="24" />}
-            <span className="ml-2">{isFavorite ? 'Remove from Watchlist' : 'Add to Watchlist'}</span>
+            <span className="ml-2 text-white">{isFavorite ? 'Remove from Watchlist' : 'Add to Watchlist'}</span>
           </button>
         </div>
       </div>
