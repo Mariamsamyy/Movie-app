@@ -3,6 +3,9 @@ import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import axiosTMDB from '../modules/ApiLinks';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../store/store';
+import { toggleFavorite, loadFavorites } from '../redux/favSlice';
 
 interface Movie {
     id: number;
@@ -31,14 +34,16 @@ const DisplayContainer: React.FC<DataProps> = ({
     const [showItems, setShowItems] = useState<Movie[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [favorites, setFavorites] = useState<Movie[]>(() => {
-        const saved = localStorage.getItem('favoritesMovies');
-        return saved ? JSON.parse(saved) : [];
-    });
+    const favorites = useSelector((state: RootState) => state.favorites.favorites);
+    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
         fetchMovies();
     }, [currentPage]);
+
+    useEffect(() => {
+        dispatch(loadFavorites());
+    }, [dispatch]);
 
     const fetchMovies = async () => {
         setLoading(true);
@@ -61,17 +66,6 @@ const DisplayContainer: React.FC<DataProps> = ({
 
     const loadMoreMovies = () => {
         setCurrentPage(prev => prev + 1);
-    };
-
-    const toggleFavorite = (movie: Movie) => {
-        setFavorites(prev => {
-            const isFavorite = prev.some(fav => fav.id === movie.id);
-            const updatedFavorites = isFavorite
-                ? prev.filter(fav => fav.id !== movie.id)
-                : [...prev, movie];
-            localStorage.setItem('favoritesMovies', JSON.stringify(updatedFavorites));
-            return updatedFavorites;
-        });
     };
 
     return (
@@ -97,7 +91,7 @@ const DisplayContainer: React.FC<DataProps> = ({
                                     <h3 className="text-lg font-bold">{tvShowOn ? item.name : item.title}</h3>
                                     <p className="text-sm text-gray-500">{new Date(item.release_date).toLocaleDateString()}</p>
                                 </div>
-                                <button onClick={() => toggleFavorite(item)}>
+                                <button onClick={() => dispatch(toggleFavorite(item))}>
                                     {favorites.some(fav => fav.id === item.id) ? <AiFillHeart color="red" size="24" /> : <AiOutlineHeart size="24" />}
                                 </button>
                             </div>
@@ -113,8 +107,6 @@ const DisplayContainer: React.FC<DataProps> = ({
                     >
                         Load More
                     </button>
-
-
                 </div>
             )}
         </div>
