@@ -6,16 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
 import { toggleFavorite, loadFavorites } from '../redux/favSlice';
 
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string;
-    release_date: string;
-    vote_average: number;
-    first_air_date?: string;
-    name?: string;
-}
-
 const FavoritesPage = () => {
     const favorites = useSelector((state: RootState) => state.favorites.favorites);
     const dispatch: AppDispatch = useDispatch();
@@ -36,7 +26,7 @@ const FavoritesPage = () => {
 
     if (favorites.length === 0) {
         return (
-            <div className="text-center">
+            <div className="text-center text-white">
                 No favorites added yet.
             </div>
         );

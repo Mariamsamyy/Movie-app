@@ -15,9 +15,7 @@ const Cover: React.FC<CoverProps> = ({
     title,
     description,
     catchyPhrase,
-    headerImage,
     showSearch,
-    showHeaderImage,
 }) => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
