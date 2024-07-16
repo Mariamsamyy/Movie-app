@@ -7,15 +7,12 @@ import TopRated from './pages/TopRated';
 import MovieDetail from './pages/movieDetails';
 import FavoritesPage from './pages/favPage';
 import SearchResults from './pages/SearchResults';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
 
 function App() {
 
 
   return (
     <>
-        <Provider store={store}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />}/>
@@ -24,8 +21,6 @@ function App() {
         <Route path="/fav" element={<FavoritesPage/>} />
         <Route path="/search/movie" element={<SearchResults />} />
       </Routes>
-      </Provider>,
-
     </>
   );
 };

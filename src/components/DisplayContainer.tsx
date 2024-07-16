@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -27,7 +26,6 @@ const DisplayContainer: React.FC<DataProps> = ({
     apiEndpoint,
     numberOfMovies,
     tvShowOn,
-    moviesOn,
     itemHeading,
 }) => {
     const [showItems, setShowItems] = useState<Movie[]>([]);
@@ -89,7 +87,7 @@ const DisplayContainer: React.FC<DataProps> = ({
                         <div key={item.id} className="bg-white shadow-xl overflow-hidden transform transition duration-300 hover:scale-110 rounded-lg">
                             <Link to={`/movie/${item.id}`}>
                                 <img
-                                    className="w-full object-cover rounded-t-lg"
+                                    className="w-full h-45 object-cover rounded-t-lg"
                                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                                     alt={item.title || item.name}
                                 />
@@ -110,11 +108,13 @@ const DisplayContainer: React.FC<DataProps> = ({
             {!loading && (
                 <div className="text-center mt-8">
                     <button
-                        className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-600"
+                        className="bg-[#00004B] text-white font-semibold text-lg px-10 py-3 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-[#000080] hover:shadow-xl active:scale-95 transform hover:-translate-y-1"
                         onClick={loadMoreMovies}
                     >
                         Load More
                     </button>
+
+
                 </div>
             )}
         </div>

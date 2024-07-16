@@ -31,6 +31,7 @@ const Home = () => {
                 tvShowOn={false}
                 moviesOn={true}
                 {...showProps} />
+                
         </div>
     )
 }

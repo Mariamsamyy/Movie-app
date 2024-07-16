@@ -3,8 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-
-const API_KEY = '329a3f62772d532265c6717d065b5820'; 
+import axiosTMDB from '../modules/ApiLinks';
 
 interface MovieDetails {
   id: number;
@@ -24,8 +23,11 @@ const MovieDetail: React.FC = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       setLoading(true);
+      const apiEndpoint = `/movie/${movieId}`; 
       try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`);
+        const response = await axiosTMDB.get(apiEndpoint, {
+          params: { append_to_response: 'videos,images' }
+        });
         setDetails(response.data);
         checkFavorite(response.data.id);
       } catch (error) {

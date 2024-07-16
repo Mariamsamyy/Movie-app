@@ -1,7 +1,7 @@
 import React from 'react'
 import Cover from '../components/Cover'
 import DisplayContainer from '../components/DisplayContainer'
-import { API_KEY, URLS } from '../modules/ApiLinks'
+import { URLS } from '../modules/ApiLinks'
 
 const TopRated = () => {
   return (
@@ -14,7 +14,6 @@ const TopRated = () => {
                 showSearch={true}
                 showHeaderImage={true}
             />
-
             <DisplayContainer 
                 apiEndpoint={`${URLS.topRatedMovies}`}
                 itemHeading={"Top Rated Movies"} 

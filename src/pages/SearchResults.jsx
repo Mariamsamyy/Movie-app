@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import axiosTMDB from '../modules/ApiLinks';
+import { CircularProgress } from '@mui/material'; 
 
 const SearchResults = () => {
   const { state } = useLocation();
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -15,24 +17,26 @@ const SearchResults = () => {
   }, [state?.query]);
 
   const fetchResults = async (query) => {
+    setLoading(true);
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+      const response = await axiosTMDB.get(`/search/movie`, {
         params: {
           api_key: '329a3f62772d532265c6717d065b5820',
           query: query
         }
       });
       setResults(response.data.results);
+      setError(''); 
     } catch (err) {
-      setError('Failed to fetch results');
+      setError('Failed to fetch results. Please try again later.');
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="flex justify-center items-center h-screen"><CircularProgress /></div>;
+  if (error) return <div className="text-center text-red-500">{error}</div>;
 
   return (
     <div className="container mx-auto px-4 py-6">

@@ -8,6 +8,7 @@ interface CoverProps {
     headerImage: string;
     showSearch: boolean;
     showHeaderImage: boolean;
+    children?: React.ReactNode;
 }
 
 const Cover: React.FC<CoverProps> = ({
