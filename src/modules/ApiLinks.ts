@@ -12,12 +12,10 @@ export const axiosTMDB = axios.create({
 
 export const URLS = {
   trending: '/trending/movie/week',
-  topRatedMovies: '/movie/top_rated',
+  topRated: '/movie/top_rated',
   upcoming: '/movie/upcoming',
   popular: '/movie/popular',
-  trendingShows: '/trending/tv/week',
-  searchMovies: '/search/movie',
-  discoverMovies: '/discover/movie',
+  
 };
 
 export default axiosTMDB;

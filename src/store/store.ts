@@ -1,13 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import moviesReducer from '../redux/movieSlice';
-import favoritesReducer from '../redux/favSlice';
+import favoritesReducer from '../redux/favSlice'; // Adjust the path as necessary
 
 export const store = configureStore({
-    reducer: {
-        movies: moviesReducer,
-        favorites: favoritesReducer,
-
-    }
+  reducer: {
+    movies: moviesReducer,
+    favorites: favoritesReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

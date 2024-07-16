@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axiosTMDB, { URLS } from '../modules/ApiLinks';
+import { RootState } from '../store/store';
 
 interface Movie {
   id: number;
@@ -10,17 +11,45 @@ interface Movie {
   first_air_date?: string;
   name?: string;
 }
-const initialState = {
-  movies: [] as Movie[],
-  page: 1,
-  status: 'idle', 
-  error: null as string | null
+
+interface ApiResponse {
+  results: Movie[];
+}
+
+interface MoviesState {
+  trending: Movie[];
+  topRated: Movie[];
+  upcoming: Movie[];
+  popular: Movie[];
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: MoviesState = {
+  trending: [],
+  topRated: [],
+  upcoming: [],
+  popular: [],
+  loading: false,
+  error: null,
 };
 
-export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (page: number, { getState }) => {
-  const response = await axios.get(`https://example.com/api/movies?page=${page}`);
-  return response.data as Movie[];
-});
+export const fetchMoviesByCategory = createAsyncThunk<Movie[], { category: keyof typeof URLS }, { state: RootState }>(
+  'movies/fetchByCategory',
+  async ({ category }, { rejectWithValue }) => {
+    try {
+      const url = URLS[category];
+      const response = await axiosTMDB.get<ApiResponse>(url);
+      if (response.status !== 200) {
+        throw new Error(`Server responded with status ${response.status}`);
+      }
+      return response.data.results;
+    } catch (error: any) {
+      console.error('Error fetching movies:', error);
+      return rejectWithValue('Failed to fetch movies');
+    }
+  }
+);
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -28,20 +57,20 @@ const moviesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchMovies.pending, (state) => {
-        state.status = 'loading';
-        state.error = null;
+      .addCase(fetchMoviesByCategory.pending, (state) => {
+        state.loading = true;
       })
-      .addCase(fetchMovies.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.movies = state.movies.concat(action.payload);
-        state.page += 1;
+      .addCase(fetchMoviesByCategory.fulfilled, (state, action) => {
+        const { category } = action.meta.arg;
+        state[category] = action.payload; 
+        state.loading = false;
       })
-      .addCase(fetchMovies.rejected, (state, action) => {
-        state.status = 'failed';
+      .addCase(fetchMoviesByCategory.rejected, (state, action) => {
         state.error = action.error.message || 'Failed to fetch movies';
+        state.loading = false;
       });
   }
 });
 
-export default moviesSlice.reducer;
+export const { reducer } = moviesSlice;
+export default reducer;
