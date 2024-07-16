@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';

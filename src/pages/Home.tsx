@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import React, { useEffect } from 'react';
 import Cover from '../components/Cover';
 import DisplayContainer from '../components/DisplayContainer';

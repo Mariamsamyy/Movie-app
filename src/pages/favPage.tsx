@@ -50,7 +50,7 @@ const FavoritesPage = () => {
                     <div key={index} className="bg-white shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 rounded-lg">
                         <Link to={`/movie/${movie.id}`}>
                             <img
-                                className="w-full h-22 object-cover rounded-t-lg"
+                                className="w-full h-86 object-cover rounded-t-lg"
                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                 alt={movie.title || movie.name}
                             />
