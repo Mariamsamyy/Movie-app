@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,7 @@ interface DisplayContainerProps {
     error: string;
     toggleFavorite: (movie: Movie) => void;
     favorites: Movie[];
+    initialItemsToShow?: number;
 }
 
 const DisplayContainer: React.FC<DisplayContainerProps> = ({
@@ -28,8 +29,15 @@ const DisplayContainer: React.FC<DisplayContainerProps> = ({
     loading,
     error,
     toggleFavorite,
-    favorites
+    favorites,
+    initialItemsToShow = 8,
 }) => {
+    const [itemsToShow, setItemsToShow] = useState(initialItemsToShow);
+
+    const loadMore = () => {
+        setItemsToShow(prevItems => prevItems + 4);
+    };
+
     if (loading) {
         return <div className="flex justify-center items-center h-screen"><CircularProgress /></div>;
     }
@@ -42,7 +50,7 @@ const DisplayContainer: React.FC<DisplayContainerProps> = ({
         <div className="container mx-auto px-4 py-6">
             <h2 className="text-3xl font-bold text-center mt-6 mb-4">{itemHeading}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {movies.map(movie => (
+                {movies.slice(0, itemsToShow).map(movie => (
                     <div key={movie.id} className="bg-white shadow-xl overflow-hidden transform transition duration-300 hover:scale-110 rounded-lg">
                         <Link to={`/movie/${movie.id}`}>
                             <img
@@ -63,7 +71,16 @@ const DisplayContainer: React.FC<DisplayContainerProps> = ({
                     </div>
                 ))}
             </div>
-            
+            {itemsToShow < movies.length && (
+                <div className="flex justify-center mt-4">
+                    <button
+                        className="bg-[#00004B] text-white font-semibold text-lg px-10 py-3 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-[#000080] hover:shadow-xl active:scale-95 transform hover:-translate-y-1"
+                        onClick={loadMore}
+                    >
+                        Load More
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
