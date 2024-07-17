@@ -15,7 +15,8 @@ const Header = () => {
         { id: 5, text: 'Top Rated', link: "/movie/top_rated" },
     ];
     return (
-        <header className='bg-[#202020] px-5 py-3 flex justify-between items-center'>
+    <React.Fragment>
+            <header className='bg-[#202020] px-5 py-3 flex justify-between items-center'>
             <nav>
                 <ul className='hidden md:flex items-center gap-4'>
                     {navItems.map((item) => (
@@ -47,6 +48,7 @@ const Header = () => {
                 )}
             </nav>
         </header>
+    </React.Fragment>
     );
 };
 

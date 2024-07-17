@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchMoviesBySearch } from '../redux/movieSlice';
+import { AppDispatch } from '../store/store'; 
 
 interface CoverProps {
     title: string;
@@ -18,10 +21,14 @@ const Cover: React.FC<CoverProps> = ({
     showSearch,
 }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>(); 
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = () => {
-        navigate(`/search/movie`, { state: { query: searchQuery } });
+        if (searchQuery.trim() !== '') {
+            dispatch(fetchMoviesBySearch(searchQuery.trim()));
+            navigate(`/`, { state: { query: searchQuery } });
+        }
     };
 
     return (
