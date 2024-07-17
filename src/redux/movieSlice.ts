@@ -73,7 +73,11 @@ export const fetchMoviesBySearch = createAsyncThunk<Movie[], string, { state: Ro
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
-  reducers: {},
+  reducers: {
+    clearSearchResults(state) {
+      state.searchResults = []; 
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMoviesByCategory.pending, (state) => {
@@ -102,5 +106,5 @@ const moviesSlice = createSlice({
   }
 });
 
-export const { reducer } = moviesSlice;
-export default reducer;
+export const { clearSearchResults } = moviesSlice.actions;
+export default moviesSlice.reducer;
