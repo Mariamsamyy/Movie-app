@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <header className='bg-[#202020] px-5 py-3 flex justify-between items-center'>
             <nav className="flex w-full">
-                <ul className='hidden md:flex items-center gap-4 text-lg'> {/* Increase font size here */}
+                <ul className='hidden md:flex items-center gap-4 text-lg'> {}
                     {navItems.map((item) => (
                         <NavLink
                             key={item.id}
@@ -33,7 +33,7 @@ const Header = () => {
                 </div>
             </nav>
             {nav && (
-                <ul className='absolute top-full left-0 w-full bg-[#032541] z-10 flex flex-col items-start py-2 text-lg'> {/* Increase font size here */}
+                <ul className='absolute top-full left-0 w-full bg-[#032541] z-10 flex flex-col items-start py-2 text-lg'> {}
                     {navItems.map((item) => (
                         <NavLink
                             key={item.id}
