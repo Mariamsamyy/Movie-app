@@ -21,8 +21,6 @@ const Cover: React.FC<CoverProps> = ({
     description,
     catchyPhrase,
     showSearch,
-    headerImage,
-    showHeaderImage,
     onSearch,
     onClearSearch, 
 }) => {

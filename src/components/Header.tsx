@@ -13,6 +13,7 @@ const Header = () => {
     ];
 
     return (
+        <React.Fragment>
         <header className='bg-[#202020] px-5 py-3 flex justify-between items-center'>
             <nav className="flex w-full">
                 <ul className='hidden md:flex items-center gap-4 text-lg'> {}
@@ -49,6 +50,8 @@ const Header = () => {
                 </ul>
             )}
         </header>
+            </React.Fragment>
+
     );
 };
 

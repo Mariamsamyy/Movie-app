@@ -17,14 +17,7 @@ const TopRated: React.FC = () => {
 
   return (
     <>
-      <Cover 
-        title="Top Rated"
-        description=""
-        catchyPhrase="Discover the Best. Experience top-rated films that have captivated audiences worldwide."
-        headerImage=""
-        showSearch={true}
-        showHeaderImage={true}
-      />
+
       <DisplayContainer 
         movies={topRated}
         itemHeading="Top Rated Movies"
