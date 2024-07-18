@@ -38,9 +38,9 @@ const FavoritesPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 {favorites.map((movie, index) => (
                     <div key={index} className="bg-white shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 rounded-lg">
-                        <Link to={`/movie/${movie.id}`}>
+                        <Link className='h-20' to={`/movie/${movie.id}`}>
                             <img
-                                className="w-full h-25 object-cover rounded-t-lg"
+                                className="w-full lg:h-[400px] object-cover rounded-t-lg"
                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                 alt={movie.title || movie.name}
                             />
