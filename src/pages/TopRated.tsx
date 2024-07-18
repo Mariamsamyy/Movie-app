@@ -15,6 +15,7 @@ const TopRated: React.FC = () => {
   }, [dispatch]);
 
   return (
+    <React.Fragment>
     <>
 
       <DisplayContainer 
@@ -26,6 +27,7 @@ const TopRated: React.FC = () => {
         favorites={favorites}
       />
     </>
+    </React.Fragment>
   );
 };
 
